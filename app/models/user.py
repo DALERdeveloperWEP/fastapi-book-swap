@@ -2,6 +2,7 @@ import datetime
 
 from sqlalchemy import Column, Integer, String, DateTime
 from sqlalchemy.orm import relationship
+
 from ..core.database import Base
 
 
@@ -15,8 +16,10 @@ class User(Base):
     phone = Column(String(15), nullable=True, unique=True)
     email = Column(String(255), nullable=True, index=True, unique=True)
     avatar = Column(String, nullable=True)
+    role = Column(String, default='user')
     created_at = Column(DateTime, nullable=False, default=datetime.datetime.now)
     updated_at = Column(DateTime, nullable=False, default=datetime.datetime.now, onupdate=datetime.datetime.now)
     
     books = relationship('Book', back_populates='user')
+    buyrequests = relationship('Buyrequest', back_populates='user')
 
