@@ -21,5 +21,5 @@ class User(Base):
     updated_at = Column(DateTime, nullable=False, default=datetime.datetime.now, onupdate=datetime.datetime.now)
     
     books = relationship('Book', back_populates='user')
-    buyrequests = relationship('Buyrequest', back_populates='user')
+    buyrequests = relationship('BuyRequest', back_populates='user')
 

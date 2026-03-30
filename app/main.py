@@ -18,7 +18,7 @@ app.include_router(router, prefix='/api')
 @app.get('/')
 async def Home(db: Annotated[Session, Depends(get_db)]):
     print(db.query(User).all())
-    return {"messange": "Hello World"}
+    return {"message": "Hello World"}
 
 
 Base.metadata.create_all(bind=engine)
