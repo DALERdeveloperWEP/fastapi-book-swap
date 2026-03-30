@@ -15,6 +15,7 @@ class User(Base):
     telegram_id = Column(String(11), nullable=False, unique=True)
     phone = Column(String(15), nullable=True, unique=True)
     email = Column(String(255), nullable=True, index=True, unique=True)
+    password = Column(String(255))
     avatar = Column(String, nullable=True)
     role = Column(String, default='user')
     created_at = Column(DateTime, nullable=False, default=datetime.datetime.now)

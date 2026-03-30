@@ -8,7 +8,11 @@ class Settings(BaseSettings):
     db_pass: str
     db_host: str
     db_port: int
-    
+    secret_key: str
+    algorithm: str
+    access_token_expire_minutes: int
+    refresh_token_expire_days: int
+
     model_config = SettingsConfigDict(env_file='.env')
     
 
