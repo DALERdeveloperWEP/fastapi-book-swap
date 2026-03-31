@@ -9,6 +9,15 @@ Bu bot orqali siz:
 
 Davom etish uchun telefon raqamingizni yuboring yoki yordam bo‘limini oching."""
 
+user_start = """Assalomu alaykum, botimizga xush kelibsiz 📚
+
+Bu bot orqali siz:
+- kitob sotishingiz
+- kitob olishingiz
+- kitoblar ro‘yxatini ko‘rishingiz mumkin
+
+Davom etish uchun kerakli bo‘limni tanlang."""
+
 guest_help = """Nima maqsad uchun yordam kerakligini yozib yuboring:"""
 
 auth_keyboard = ReplyKeyboardMarkup(
@@ -27,7 +36,8 @@ menu_keyboard = ReplyKeyboardMarkup(
     [
         [KeyboardButton("📚 Kitob olish"), KeyboardButton("💰 Kitob sotish")],
         [KeyboardButton("📖 Mening kitoblarim"), KeyboardButton("🛒 Mening buyurtmalarim")],
-        [KeyboardButton("👤 Profil"), KeyboardButton("❓ Yordam")]
+        [KeyboardButton("👤 Profil"), KeyboardButton("❓ Yordam")],
+        [KeyboardButton("Sayt uchun Kod olish")]
     ],
     resize_keyboard=True
 )

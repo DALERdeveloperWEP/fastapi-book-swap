@@ -6,38 +6,22 @@ from sqlalchemy.orm import Session
 from app.core.database import SessionLocal
 from app.models.user import User
 from ..services.keyboar_text import *
+from ..services.user import check_user
 
 async def start(update: Update, context: ContextTypes):
-    session: Session = SessionLocal()
+    session = SessionLocal()
     
-    telegram_id = str(update.effective_user.id)
-    first_name = update.effective_user.first_name
-    last_name = update.effective_user.last_name
-    
-    user = session.query(User).filter(User.telegram_id==telegram_id).first()
-    
-    if not user:
-        new_user = User(
-            telegram_id=telegram_id,
-            role='user'
-        )
-        if first_name:
-            new_user.first_name = first_name
-        if last_name:
-            new_user.last_name = last_name
+    match check_user(update=update, session=session):
+        case 'create user':
+            await update.message.reply_text(first_start, reply_markup=auth_keyboard)
+            return
+        case 'not phone number':
+            await update.message.reply_text(first_start, reply_markup=auth_keyboard)
+            return 
+        case 'user exist':
+            await update.message.reply_text(user_start, reply_markup=menu_keyboard)
+            return 
+        case _:
+            await update.message.reply_text('Xatolik yuz berdi, iltimos keyinroq urinib ko\'ring')
+            return
         
-        session.add(new_user)
-        session.commit()
-        session.refresh(new_user)
-        
-        await update.message.reply_text(first_start, reply_markup=auth_keyboard)
-        return
-    
-    elif not user.phone:
-        await update.message.reply_text(first_start, reply_markup=auth_keyboard)
-        return
-    else:
-        await update.message.reply_text(first_start, reply_markup=auth_keyboard)
-        return
-    
-    
