@@ -34,6 +34,7 @@ pydantic_core==2.41.5
 Pygments==2.19.2
 python-dotenv==1.2.2
 python-multipart==0.0.22
+python-telegram-bot==22.7
 PyYAML==6.0.3
 redis==7.4.0
 rich==14.3.3
@@ -41,6 +42,7 @@ rich-toolkit==0.19.7
 rignore==0.7.6
 sentry-sdk==2.56.0
 shellingham==1.5.4
+sqladmin==0.24.0
 SQLAlchemy==2.0.48
 starlette==1.0.0
 typer==0.24.1
@@ -51,3 +53,4 @@ uvicorn==0.42.0
 uvloop==0.22.1
 watchfiles==1.1.1
 websockets==16.0
+WTForms==3.1.2

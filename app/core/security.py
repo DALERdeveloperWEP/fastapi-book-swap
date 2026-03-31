@@ -1,5 +1,4 @@
 from time import time
-import os
 
 import jwt
 from passlib.hash import bcrypt
