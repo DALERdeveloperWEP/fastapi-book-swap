@@ -1,6 +1,6 @@
 from typing import Annotated
 
-from fastapi import Depends, HTTPException
+from fastapi import Depends, HTTPException, Request
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 
 from sqlalchemy.orm import Session
@@ -13,15 +13,26 @@ from ..core.dependencies import get_db
 bearer = HTTPBearer()
 
 def get_currnet_user(
+    request: Request,
     cred: Annotated[HTTPAuthorizationCredentials, Depends(bearer)],
     db: Annotated[Session, Depends(get_db)],
 ):
     decode_token = verify_token(cred.credentials)
     
     if not decode_token:
-        pass
+        raise HTTPException(
+            status_code=401,
+            detail="Invalid or expired token"
+        )
     
-    print(decode_token['user_id'])
+    user = db.query(User).filter(User.id==decode_token['user_id']).first() 
     
-    return None
+    if not user:
+        raise HTTPException(
+            status_code=404,
+            detail="User not found"
+        )
+    
+    
+    return user 
     

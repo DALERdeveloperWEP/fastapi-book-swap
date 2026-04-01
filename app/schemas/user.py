@@ -4,7 +4,7 @@ from pydantic import BaseModel, Field, field_validator
 
 
 class Login(BaseModel):
-    phone_number: Annotated[str, Field(pattern=r"^\+998\d{9}$")]
+    phone_number: Annotated[str, Field(pattern=r"^\+998\d{9}$", examples=["+998901234567"])]
     
     # phone_number: Annotated[str, Field(min_length=13, max_length=13)]
     
@@ -18,7 +18,7 @@ class Login(BaseModel):
     
 
 class VerifyCode(BaseModel):
-    phone_number: Annotated[str, Field(pattern=r"^\+998\d{9}$")]
-    code: Annotated[int, Field(max_length=6, min_length=6)]
+    phone_number: Annotated[str, Field(pattern=r"^\+998\d{9}$", examples=["+998901234567"])]
+    verify_code: Annotated[str, Field(max_length=6, min_length=6, examples=["Olti xonali raqam (123456)"])]
     
     
