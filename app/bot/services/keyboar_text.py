@@ -28,6 +28,8 @@ auth_keyboard = ReplyKeyboardMarkup(
     resize_keyboard=True
 )
 
+phone_reqeaired = """Iltimos, telefon raqamingizni yuboring yoki yordam bo‘limini oching."""
+
 phone_access = """Rahmat, telefon raqamingiz qabul qilindi ✅
 
 Kerakli bo‘limni tanlang:"""
@@ -36,11 +38,12 @@ menu_keyboard = ReplyKeyboardMarkup(
     [
         [KeyboardButton("📚 Kitob olish"), KeyboardButton("💰 Kitob sotish")],
         [KeyboardButton("📖 Mening kitoblarim"), KeyboardButton("🛒 Mening buyurtmalarim")],
-        [KeyboardButton("👤 Profil"), KeyboardButton("❓ Yordam")],
-        [KeyboardButton("Sayt uchun Kod olish")]
+        [KeyboardButton("👤 Profil"), KeyboardButton("🆘 Yordam")],
+        [KeyboardButton("🔐 Sayt uchun Kod olish")]
     ],
     resize_keyboard=True
 )
+
 
 user_help = """Yordam bo‘limi ℹ️
 

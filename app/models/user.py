@@ -24,3 +24,9 @@ class User(Base):
     books = relationship('Book', back_populates='user')
     buyrequests = relationship('BuyRequest', back_populates='user')
 
+    def __repr__(self):
+        return f"{self.first_name} | {self.phone}"
+    
+    def __str__(self):
+        return f"{self.first_name} | {self.phone}"
+    

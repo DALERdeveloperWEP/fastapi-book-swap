@@ -13,7 +13,7 @@ from .models.user import User
 from .models.book import Book
 from .models.swap import BuyRequest
 from .bot.bot import lifespan
-from .core.admin import UserAdmin
+from .core.admin import UserAdmin, BookAdmin
     
 app = FastAPI(lifespan=lifespan)
 app.include_router(router, prefix='/api')
@@ -64,6 +64,7 @@ async def Telegram(request: Request):
 
 admin = Admin(app, engine)
 admin.add_view(UserAdmin)
+admin.add_view(BookAdmin)
 
 Base.metadata.create_all(bind=engine)
 # Base.metadata.drop_all(bind=engine)

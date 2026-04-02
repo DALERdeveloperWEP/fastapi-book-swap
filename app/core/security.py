@@ -1,6 +1,7 @@
 import json
 from random import randint
 from time import time
+from uuid import uuid4
 
 import jwt
 from passlib.hash import bcrypt
@@ -52,7 +53,7 @@ def verify_password(plain_password: str, hashed_password: str) -> bool:
     return bcrypt.verify(plain_password, hashed_password)
 
 
-def genegrate_otp(phone_number: str, login_panding: bool) -> str:
+def genegrate_otp(phone_number: str, login_panding: bool = False) -> str:
     t_otp = str(randint(100000, 999999))
     otp = t_otp if not login_panding else json.dumps({"OTP": t_otp, "login_panding": True})
     r.setex(phone_number, 120, otp)  # Expire after 2 minutes
@@ -67,3 +68,13 @@ def delete_otp(phone_number: str) -> None:
         return True
     else:
         return None
+    
+
+async def upload_image(image_file):
+    file_path = f'media/book_thumbnail/{uuid4()}.{image_file.content_type.split("/")[-1]}'
+    if not image_file.content_type.startswith('image/'):
+        return None
+    with open(file_path, 'wb') as f:
+        f.write(await image_file.read())
+    
+    return file_path

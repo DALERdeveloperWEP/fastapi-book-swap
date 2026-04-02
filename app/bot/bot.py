@@ -5,7 +5,7 @@ from telegram.ext import ApplicationBuilder, ContextTypes, CommandHandler, Messa
 from fastapi import FastAPI
 
 from .handlers.command import start
-from .handlers.message import contact_message
+from .handlers.message import contact_message, otp_message
 from ..core.config import settings
 
 @asynccontextmanager
@@ -14,6 +14,7 @@ async def lifespan(app: FastAPI):
 
     telegram_app.add_handler(CommandHandler("start", start))
     telegram_app.add_handler(MessageHandler(filters.CONTACT, contact_message))
+    telegram_app.add_handler(MessageHandler(filters.Regex("🔐 Sayt uchun Kod olish"), otp_message))
 
     # START
     await telegram_app.initialize()

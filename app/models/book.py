@@ -8,7 +8,7 @@ class Book(Base):
     __tablename__ = 'books'
     
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
-    title = Column(String(255), nullable=False, index=True)
+    title = Column(String(128), nullable=False, index=True)
     book_image = Column(String, nullable=False)
     user_id = Column(Integer, ForeignKey('users.id', ondelete='CASCADE'))
     price = Column(Float, nullable=False)
@@ -19,3 +19,10 @@ class Book(Base):
     
     user = relationship('User', back_populates='books')
     buyrequests = relationship('BuyRequest', back_populates='book')
+    
+    
+    def __repr__(self):
+        return f'{self.title}'
+    
+    def __str__(self):
+        return f'{self.title}'
