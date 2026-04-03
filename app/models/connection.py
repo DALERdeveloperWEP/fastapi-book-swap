@@ -23,7 +23,10 @@ class ConnectionClient(Base):
     
     
     def __str__(self):
-        return f'{self.buy_user} | {self.client_user} = {self.book_id}'
+        return f'''{{"seller_id": {self.buy_user_id}, "client_id": {self.client_user_id}, "book_id": {self.book_id}}}'''
+    
+    def __repr__(self):
+        return f'''{{"seller_id": {self.buy_user_id}, "client_id": {self.client_user_id}, "book_id": {self.book_id}}}'''
     
 
 
@@ -41,5 +44,7 @@ class Message(Base):
     
     
     def __str__(self):
-        return f"{self.user_id} | {self.conntection} = {self.message[:20]}"
+        return f'''{{"user_id": {self.user_id}, "connection_id": {self.conntection_id}, "message": "{self.message[:20]}"}}'''
     
+    def __repr__(self):
+        return f'''{{"user_id": {self.user_id}, "connection_id": {self.conntection_id}, "message": "{self.message[:20]}"}}'''

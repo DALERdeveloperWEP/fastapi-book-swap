@@ -1,7 +1,7 @@
 from typing import Annotated, List
 
 from fastapi import APIRouter, Depends, Body, HTTPException
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload
 
 from ..schemas.buy import BuyResponse, BuyCreate, BuyUpdate
 from .deps import get_currnet_user
@@ -13,16 +13,27 @@ from ..core.security import generate_tokens
 
 router = APIRouter()
 
-@router.get('/')
-async def get_user_buys(
+@router.get('/buys')
+async def get_user_buys_buys(
     user: Annotated[User, Depends(get_currnet_user)],
     db: Annotated[Session, Depends(get_db)],
 ) -> List[BuyResponse]:
     user_buys = db.query(BuyRequest).filter(BuyRequest.user_id==user.id).all()
+
     return user_buys
 
+
+@router.get('/sells')
+async def get_user_book_sells(
+    user: Annotated[User, Depends(get_currnet_user)],
+    db: Annotated[Session, Depends(get_db)],
+) -> List[BuyResponse]:
+    sells_book = db.query(BuyRequest).join(Book, BuyRequest.book_id == Book.id).filter(Book.user_id == user.id).all()
+    
+    return sells_book
+
 # print(generate_tokens(1))
-@router.post('/')
+@router.post('/buys')
 async def book_buys(
     data: Annotated[BuyCreate, Body()],
     user: Annotated[User, Depends(get_currnet_user)],
@@ -58,7 +69,7 @@ async def book_buys(
     return book_buy
     
     
-@router.put('/{buy_id}')
+@router.put('/buys/{buy_id}/')
 async def update_buy(
     buy_id: int,
     data: Annotated[BuyUpdate, Body()],

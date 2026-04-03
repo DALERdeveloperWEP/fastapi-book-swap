@@ -2,6 +2,7 @@ from datetime import datetime
 from typing import Annotated
 
 from fastapi import FastAPI, Depends, Request
+from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from telegram import Update
 from sqladmin import Admin
@@ -17,6 +18,21 @@ from .core.admin import MessageAdmin, UserAdmin, BookAdmin, BuyReuqeustAdmin, Co
     
 app = FastAPI(lifespan=lifespan)
 app.include_router(router, prefix='/api')
+
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://127.0.0.1:5500",
+        "http://localhost:5500",
+        "http://127.0.0.1:3000",
+        "http://localhost:3000",
+        "null",
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.middleware("http")

@@ -83,5 +83,18 @@ async def verify_otp(
 @router.get('/auth/me')
 async def user_bio(
     user: Annotated[dict, Depends(get_currnet_user)],
+    db: Annotated[Session, Depends(get_db)]
 ):
-    return {'message': 'This is protected route', 'user_id': user.id}
+    user = db.query(User).filter(User.id == user.id).first()
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="User not found"
+        )
+    r_js = {
+        "id": user.id,
+        "first_name": user.first_name,
+        "last_name": user.last_name,
+        "phone": user.phone,
+    }
+    return r_js

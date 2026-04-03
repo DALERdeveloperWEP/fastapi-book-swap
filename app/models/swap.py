@@ -18,9 +18,9 @@ class BuyRequest(Base):
     user = relationship('User', back_populates='buyrequests')
     conntections = relationship("ConnectionClient", back_populates='buy_request')
     
-    
+
     def __str__(self):
-        return self.id
+        return f"""{{'id': {self.id}, 'book_id': {self.book_id}, 'user_id': {self.user_id}, 'total_books': {self.total_books}, 'delivery_method': {self.delivery_method}, 'status': {self.status}}}"""
     
     def __repr__(self):
-        return self.id
+        return f"""{{'id': {self.id}, 'book_id': {self.book_id}, 'user_id': {self.user_id}, 'total_books': {self.total_books}, 'delivery_method': {self.delivery_method}, 'status': {self.status}}}"""
