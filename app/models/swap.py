@@ -11,8 +11,16 @@ class BuyRequest(Base):
     user_id = Column(Integer, ForeignKey('users.id', ondelete='CASCADE'))
     total_books = Column(Integer, nullable=False)
     delivery_method = Column(String(64), nullable=False)
+    # location = Column(String())
     status = Column(String(24), nullable=False, default='pending')
     
     book = relationship('Book', back_populates='buyrequests')
     user = relationship('User', back_populates='buyrequests')
+    conntections = relationship("ConnectionClient", back_populates='buy_request')
     
+    
+    def __str__(self):
+        return self.id
+    
+    def __repr__(self):
+        return self.id

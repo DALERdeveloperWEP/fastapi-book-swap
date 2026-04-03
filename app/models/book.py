@@ -19,6 +19,7 @@ class Book(Base):
     
     user = relationship('User', back_populates='books')
     buyrequests = relationship('BuyRequest', back_populates='book')
+    conntections = relationship("ConnectionClient", back_populates='book')
     
     
     def __repr__(self):

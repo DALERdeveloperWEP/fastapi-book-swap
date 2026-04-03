@@ -12,6 +12,7 @@ class BuyResponse(BaseModel):
     id: int
     book_id:int 
     total_books:int 
+    user_id: int
     delivery_method:str 
     status: str
     

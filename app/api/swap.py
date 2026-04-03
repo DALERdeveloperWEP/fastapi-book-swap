@@ -20,7 +20,8 @@ async def get_user_buys(
 ) -> List[BuyResponse]:
     user_buys = db.query(BuyRequest).filter(BuyRequest.user_id==user.id).all()
     return user_buys
-# print(generate_tokens(2))
+
+# print(generate_tokens(1))
 @router.post('/')
 async def book_buys(
     data: Annotated[BuyCreate, Body()],
@@ -37,6 +38,11 @@ async def book_buys(
     
     if data.delivery_method not in ['pickup','post']:
         raise HTTPException(detail='Iltimos (pickup, post) shulardan biror tasini tanlab yuboring', status_code=400)
+    
+    buy_re = db.query(BuyRequest).filter(BuyRequest.user_id==user.id).first()
+    
+    if buy_re:
+        raise HTTPException(detail="Siz Bu Kitobni Sotib Olgansiz", status_code=400)
     
     book_buy = BuyRequest(
         book_id=data.book_id,

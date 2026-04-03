@@ -24,6 +24,11 @@ class User(Base):
     books = relationship('Book', back_populates='user')
     buyrequests = relationship('BuyRequest', back_populates='user')
 
+    buy_conntections = relationship("ConnectionClient", foreign_keys='ConnectionClient.buy_user_id', back_populates='buy_user')
+    client_conntections = relationship("ConnectionClient", foreign_keys='ConnectionClient.client_user_id', back_populates='client_user')
+
+    message = relationship("Message", back_populates='user')
+    
     def __repr__(self):
         return f"{self.first_name} | {self.phone}"
     
